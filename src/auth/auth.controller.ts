@@ -11,12 +11,14 @@ export class AuthController {
     // }
 
     @Post()
-    login(@Body() phoneNumber: string) {
-        console.log(phoneNumber);
+    login(@Body() body: { phoneNumber: string }) {
+        console.log(body.phoneNumber);
+        return this.authService.sendOtp(body.phoneNumber);
     }
 
     @Post('verify')
-    verify(@Body() phoneNumber: string, code: string) {
+    verify(@Body() body: { phoneNumber: string, code: string }) {
+        const { phoneNumber, code } = body;
         console.log(phoneNumber, code);
     }
 }

@@ -6,12 +6,8 @@ export class TwilioService {
     private client: Twilio;
     private serviceId: string;
 
-
     constructor() {
-        this.client = new Twilio(
-            process.env.TWILIO_ACCOUNT_SID,
-            process.env.TWILIO_AUTH_TOKEN
-        );
+        this.client = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
         this.serviceId = process.env.TWILIO_VERIFY_SERVICE_SID || '';
     }
 
