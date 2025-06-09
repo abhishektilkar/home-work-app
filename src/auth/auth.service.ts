@@ -8,4 +8,8 @@ export class AuthService {
     sendOtp(phoneNumber: string) {
         return this.twilioService.sendOtp(phoneNumber);
     }
+
+    verifyOtp(phoneNumber: string, code: string) {
+        return this.twilioService.verifyOtp(phoneNumber, code);
+    }
 }

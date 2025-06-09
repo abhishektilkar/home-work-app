@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { Twilio } from "twilio";
 
 @Injectable()
@@ -12,7 +13,12 @@ export class TwilioService {
     }
 
     async sendOtp(phoneNumber: string) {
-        return await this.client.verify.v2.services(this.serviceId).verifications.create({ to: phoneNumber, channel: 'sms' });
+        try {
+            return await this.client.verify.v2.services(this.serviceId).verifications.create({ to: phoneNumber, channel: 'sms' });
+        } catch (e) {
+            console.log(e);
+            return e;
+        }
     }
 
     async verifyOtp(phoneNumber: string, code: string) {
