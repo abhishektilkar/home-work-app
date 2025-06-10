@@ -1,14 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 @Controller('login')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    // @Get()
-    // login() {
-    //     return 'login';
-    // }
+    @Get()
+    getLogin() {
+        return { message: 'login' };
+    }
 
     @Post()
     login(@Body() body: { phoneNumber: string }) {
@@ -16,8 +16,8 @@ export class AuthController {
     }
 
     @Post('verify')
-    verify(@Body() body: { phoneNumber: string, code: string }) {
-        const { phoneNumber, code } = body;
-        return this.authService.verifyOtp(phoneNumber, code);
+    async verify(@Body() body: { phoneNumber: string, code: string, password: string }) {
+        const { phoneNumber, code, password } = body;
+        return this.authService.verifyOtpAndSendToken(phoneNumber, code, password);
     }
 }

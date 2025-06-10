@@ -27,6 +27,7 @@ export class TwilioService {
             return result.status === 'approved';
         } catch(e) {
             console.log(e);
+            return e;
         }
     }
 
